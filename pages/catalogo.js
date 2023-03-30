@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Header from "./header";
 import Footer from "./footer";
+import { Alert, Button, Snackbar } from "@mui/material";
 
 export default function Productos() {
+  const [open, setOpen] = useState(false);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -18,9 +20,8 @@ export default function Productos() {
   const addCesta = (product) => {
     const cesta = JSON.parse(localStorage.getItem("cesta") || "[]");
     localStorage.setItem("cesta", JSON.stringify([...cesta, product]));
-    alert("Producto añadido al carrito");
+    setOpen(true);
   };
-
 
   return (
     <>
@@ -50,9 +51,22 @@ export default function Productos() {
               </p>
               <p id="rates">{product.rating.count} valoraciones</p>
               <br />
-              <button id="btn" onClick={() => addCesta(product)}>
+              <Button
+                variant="contained"
+                onClick={() => addCesta(product)}
+              >
                 Añadir al carrito
-              </button>
+              </Button>
+              <Snackbar
+                open={open}
+                autoHideDuration={2000}
+                onClose={() => setOpen(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              >
+                <Alert severity="success" sx={{ width: "100%" }}>
+                  Producto añadido al carrito
+                </Alert>
+              </Snackbar>
               <br />
               <br />
             </div>

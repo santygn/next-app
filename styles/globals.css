@@ -27,7 +27,7 @@ nav {
   justify-content: flex-start;
   align-items: center;
   height: 6vh;
-  z-index: 10;
+  z-index: 1;
 }
 
 nav a {
